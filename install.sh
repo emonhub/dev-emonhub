@@ -12,6 +12,11 @@ CONF_PATH=/home/pi
 ### clone emonhub
 git clone https://github.com/emonhub/emonhub.git
 
+### switch to development branch
+cd emonhub
+git checkout development
+cd ../
+
 ### create linked directory for emonhub.py etc
 sudo rm -r -f $INST_PATH
 sudo ln -s $GIT_PATH/src $INST_PATH
