@@ -9,5 +9,8 @@ This script is not intended to fully install emonHub, It clones into "emonhub" f
 
 Edit configurations
 
-    nano emonhub/conf/emonhub.conf
+    nano /etc/emonhub/emonhub.conf
 
+View last 10 logfile entries
+
+    tail /var/log/emonhub.log
