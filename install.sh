@@ -37,3 +37,6 @@ sudo apt-get install -y python-serial python-configobj
 
 ### start emonhub
 sudo service emonhub restart
+
+### delete install script
+sudo rm -r dev-emonhub
