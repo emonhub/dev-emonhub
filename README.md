@@ -27,3 +27,6 @@ To update from git repo and retain existing configuration file
     mv /home/pi/emonhub.conf conf/emonhub.conf
     
 But if there have been any updates to the emonhub.conf file on git those changes will have to be added manually
+
+    nano /etc/emonhub/emonhub.conf
+
