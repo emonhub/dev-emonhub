@@ -14,3 +14,16 @@ Edit configurations
 View last 10 logfile entries
 
     tail /var/log/emonhub.log
+    
+-----------------------------------------------------------------   
+    
+    
+To update from git repo and retain existing configuration file
+
+    cd /home/pi/emonhub
+    cp conf/emonhub.conf /home/pi/emonhub.conf
+    git pull
+    rm conf/emonhub.conf
+    mv /home/pi/emonhub.conf conf/emonhub.conf
+    
+But if there have been any updates to the emonhub.conf file on git those changes will have to be added manually
