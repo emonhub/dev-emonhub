@@ -40,6 +40,9 @@ sudo update-rc.d emonhub defaults 99
 ###install dependancies
 sudo apt-get install -y python-serial python-configobj
 
+### create "emonhub" user
+sudo useradd -M -r -G dialout,tty -c "emonHub user" emonhub
+
 ### start emonhub
 sudo service emonhub restart
 
