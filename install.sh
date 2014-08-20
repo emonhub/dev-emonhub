@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd/~
+
 ### set git cloned location
 GIT_PATH=/home/pi/emonhub
 
