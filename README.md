@@ -1,7 +1,7 @@
 Script to install emonHub from git for development
 --------------------------------------------------
 
-Use this commandline to install a "development" version of emonHub
+Use this commandline from the homedir to install a "development" version of emonHub
 
     git clone https://github.com/emonhub/dev-emonhub.git && dev-emonhub/install.sh
     
