@@ -13,7 +13,7 @@ Edit configuration file
 
 View last 10 logfile entries and monitor new log entries
 
-    tail -f /var/log/emonhub.log
+    tail -f /var/log/emonhub/emonhub.log
     
 -----------------------------------------------------------------
 
@@ -21,6 +21,10 @@ NOTE - There can only be one software using the serial UART and therefore the RF
     
 -----------------------------------------------------------------   
 
+Alternatively use this command to install a "development" version of emonHub in place of an existing raspberrypi module.
 
+     git clone https://github.com/emonhub/dev-emonhub.git ~/dev-emonhub && ~/dev-emonhub/upgrade
+    
+USE WITH CAUTION! This will attempt to delete/remove the files expected to be found in a regular installation and then install emonHub.
 
 
