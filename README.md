@@ -1,32 +1,26 @@
 Script to install emonHub from git for development
 --------------------------------------------------
 
-Use this commandline from the homedir to install a "development" version of emonHub
+Use this command to install a "development" version of emonHub
 
     git clone https://github.com/emonhub/dev-emonhub.git ~/dev-emonhub && ~/dev-emonhub/install
     
-This script is not intended to fully install emonHub, It clones into "emonhub" folder in home directory and symlinks the files to where they are supposed to be.
+This script is not intended to fully install emonHub, It clones into "emonhub" folder in users home directory and symlinks the files to where they are supposed to be.
 
-Edit configurations
+Edit configuration file
 
     nano /etc/emonhub/emonhub.conf
 
-View last 10 logfile entries
+View last 10 logfile entries and monitor new log entries
 
-    tail /var/log/emonhub.log
+    tail -f /var/log/emonhub.log
+    
+-----------------------------------------------------------------
+
+NOTE - There can only be one software using the serial UART and therefore the RFM2Pi at any time so if you intend to use emonHub to interface with an RFM2Pi you must first remove or stop any programs that attempt to access the RFM2Pi.
     
 -----------------------------------------------------------------   
-    
-    
-To update from git repo and retain existing configuration file
 
-    cd /home/pi/emonhub
-    mv conf/emonhub.conf /home/pi/emonhub.conf
-    git pull
-    rm conf/emonhub.conf
-    mv /home/pi/emonhub.conf conf/emonhub.conf
-    
-But if there have been any updates to the emonhub.conf file on git those changes will have to be added manually
 
-    nano /etc/emonhub/emonhub.conf
+
 
