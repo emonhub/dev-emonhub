@@ -3,6 +3,7 @@
 # Remove raspberrypi module if installed (by git)
 if [ -f /var/www/emoncms/Modules/raspberrypi/raspberrypi_run.php ] ; then
         {
+        echo "removing emoncms raspberrypi module"
         sudo service rfm12piphp stop
         sudo rm /etc/init.d/rfm12piphp
         sudo update-rc.d -f rfm12piphp remove
@@ -13,6 +14,7 @@ fi
 # Remove emoncms-module-rfm12pi package if installed (by debian)
 if [ -f /usr/share/emoncms/www/Modules/raspberrypi/raspberrypi_run.php ] ; then
         {
+        echo "removing emoncms-module-rfm12pi package"
         sudo service rfm12piphp stop
         sudo apt-get --force-yes remove emoncms-module-rfm12pi
         }
