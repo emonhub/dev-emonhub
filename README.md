@@ -5,7 +5,7 @@ Use this command to install a "development" version of emonHub
 
     git clone https://github.com/emonhub/dev-emonhub.git ~/dev-emonhub && ~/dev-emonhub/install
     
-This script is not intended to fully install emonHub, It clones into "emonhub" folder in users home directory and symlinks the files to where they are supposed to be.
+This script is not intended to fully install emonHub, It clones into "emonhub" folder in users home directory and symlinks the files to where they are supposed to be for development purposes.
 
 Edit configuration file
 
