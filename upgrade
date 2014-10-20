@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Remove raspberrypi module if installed (by git)
+if [ -f /var/www/emoncms/Modules/raspberrypi/raspberrypi_run.php ] ; then
+        {
+        sudo service rfm12piphp stop
+        sudo rm /etc/init.d/rfm12piphp
+        sudo update-rc.d -f rfm12piphp remove
+        sudo rm -r /var/www/emoncms/Modules/raspberrypi
+        }
+fi
+
+# Remove emoncms-module-rfm12pi package if installed (by debian)
+if [ -f /usr/share/emoncms/www/Modules/raspberrypi/raspberrypi_run.php ] ; then
+        {
+        sudo service rfm12piphp stop
+        sudo apt-get --force-yes remove emoncms-module-rfm12pi
+        }
+fi
+
+~/dev-emonhub/install
