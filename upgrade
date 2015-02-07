@@ -20,4 +20,14 @@ if [ -f /usr/share/emoncms/www/Modules/raspberrypi/raspberrypi_run.php ] ; then
         }
 fi
 
+# if emonhub is not already installed then install now
+if [ -f /etc/init.d/emonhub ] ; then
+        {
+        echo "emonHub is already installed, exiting without installing"
+        exit
+        }
+fi
+
 ~/dev-emonhub/install
+
+
