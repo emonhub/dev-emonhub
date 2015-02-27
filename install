@@ -61,6 +61,13 @@ case \$1 in
             }
         fi
         ;;
+    -ct | --crontab)
+        if [ \$R == "RO" ] ; then
+            {
+            sudo mount -o remount,ro /dev/mmcblk0p2  /
+            }
+        sudo crontab -e -u emonhub
+        ;;
     -r | --restart)
         sudo service emonhub restart ;;
     -s | --start)
@@ -101,6 +108,7 @@ case \$1 in
         echo
         echo "emonHub utilities"
         echo "   -c | --config    Configure emonHub by editing emonhub.conf"
+        echo "  -ct | --crontab   Opens emonHub's crontab scheduler"
         echo "   -h | --help      Display this help for emonHub command options"
         echo "   -r | --restart   Restart the emonhub service"
         echo "   -s | --start     Start the emonhub service"
