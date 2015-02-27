@@ -41,94 +41,94 @@ sudo update-rc.d emonhub defaults 99
 sudo apt-get install -y python-serial python-configobj python-pip
 sudo pip install paho-mqtt
 
-# create the emonhub utilities script
-sudo sh -c 'cat > /usr/bin/emonhub' << EOF
-#!/bin/bash
-
-R=\$(touch ~/roorrw 2>/dev/null && { rm ~/roorrw; echo "RW"; } || echo "RO")
-
-case \$1 in
-    -c | --config)
-        if [ \$R == "RO" ] ; then
-            {
-            sudo mount -o remount,rw /dev/mmcblk0p2  /
-            }
-        fi
-        sudo nano /etc/emonhub/emonhub.conf
-        if [ \$R == "RO" ] ; then
-            {
-            sudo mount -o remount,ro /dev/mmcblk0p2  /
-            }
-        fi
-        ;;
-    -ct | --crontab)
-        if [ \$R == "RO" ] ; then
-            {
-            sudo mount -o remount,ro /dev/mmcblk0p2  /
-            }
-        fi
-        sudo crontab -e -u emonhub
-        ;;
-    -r | --restart)
-        sudo service emonhub restart ;;
-    -s | --start)
-        sudo service emonhub start ;;
-    -u | --update)
-        if [ \$R == "RO" ] ; then
-            {
-            sudo mount -o remount,rw /dev/mmcblk0p2  /
-            }
-        fi
-        echo "Checking for emonHub updates..."
-        cd ~/emonhub
-        git pull
-        cd - >/dev/null
-        if [ \$R == "RO" ] ; then
-            {
-            sudo mount -o remount,ro /dev/mmcblk0p2  /
-            }
-        fi
-        ;;
-    -v | --version)
-        sudo python /usr/share/emonhub/emonhub.py --version ;;
-    -x | --exit)
-        sudo service emonhub stop ;;
-    -dl | --display-log)
-        echo "Use 'ctrl-C' to quit displaying log messages."
-        echo
-        tail -f /var/log/emonhub/emonhub.log ;;
-    -ol | --open-logfile)
-        sudo nano /var/log/emonhub/emonhub.log ;;
-    -rl | --reset-logfile)
-        sudo sh -c 'echo "" > /var/log/emonhub/emonhub.log' ;;
-    -vl | --view-logfile)
-        cat /var/log/emonhub/emonhub.log ;;
-    *)
-        echo
-        echo "The 'emonhub' command can be used with these valid options"
-        echo
-        echo "emonHub utilities"
-        echo "   -c | --config    Configure emonHub by editing emonhub.conf"
-        echo "  -ct | --crontab   Opens emonHub's crontab scheduler"
-        echo "   -h | --help      Display this help for emonHub command options"
-        echo "   -r | --restart   Restart the emonhub service"
-        echo "   -s | --start     Start the emonhub service"
-        echo "   -u | --update    Update emonHub via the git repository"
-        echo "   -v | --version   Display the emonHub version installed"
-        echo "   -x | --exit      Exit emonHub by stopping the emonhub service"
-        echo
-        echo "emonHub logging"
-        echo "  -dl | --display-log   Display last 10 & on-going log messages"
-        echo "  -ol | --open=logfile  Open logfile in nano text editor"
-        echo "  -rl | --reset-logfile Reset the current logfile (deletes log!)"
-        echo "  -vl | --view-logfile  View the entire logfile"
-        echo;;
-esac
-
-EOF
-
-# make the utilities script executable
-sudo chmod +x /usr/bin/emonhub
+## create the emonhub utilities script
+#sudo sh -c 'cat > /usr/bin/emonhub' << EOF
+##!/bin/bash
+#
+#R=\$(touch ~/roorrw 2>/dev/null && { rm ~/roorrw; echo "RW"; } || echo "RO")
+#
+#case \$1 in
+#    -c | --config)
+#        if [ \$R == "RO" ] ; then
+#            {
+#            sudo mount -o remount,rw /dev/mmcblk0p2  /
+#            }
+#        fi
+#        sudo nano /etc/emonhub/emonhub.conf
+#        if [ \$R == "RO" ] ; then
+#            {
+#            sudo mount -o remount,ro /dev/mmcblk0p2  /
+#            }
+#        fi
+#        ;;
+#    -ct | --crontab)
+#        if [ \$R == "RO" ] ; then
+#            {
+#            sudo mount -o remount,ro /dev/mmcblk0p2  /
+#            }
+#        fi
+#        sudo crontab -e -u emonhub
+#        ;;
+#    -r | --restart)
+#        sudo service emonhub restart ;;
+#    -s | --start)
+#        sudo service emonhub start ;;
+#    -u | --update)
+#        if [ \$R == "RO" ] ; then
+#            {
+#            sudo mount -o remount,rw /dev/mmcblk0p2  /
+#            }
+#        fi
+#        echo "Checking for emonHub updates..."
+#        cd ~/emonhub
+#        git pull
+#        cd - >/dev/null
+#        if [ \$R == "RO" ] ; then
+#            {
+#            sudo mount -o remount,ro /dev/mmcblk0p2  /
+#            }
+#        fi
+#        ;;
+#    -v | --version)
+#        sudo python /usr/share/emonhub/emonhub.py --version ;;
+#    -x | --exit)
+#        sudo service emonhub stop ;;
+#    -dl | --display-log)
+#        echo "Use 'ctrl-C' to quit displaying log messages."
+#        echo
+#        tail -f /var/log/emonhub/emonhub.log ;;
+#    -ol | --open-logfile)
+#        sudo nano /var/log/emonhub/emonhub.log ;;
+#    -rl | --reset-logfile)
+#        sudo sh -c 'echo "" > /var/log/emonhub/emonhub.log' ;;
+#    -vl | --view-logfile)
+#        cat /var/log/emonhub/emonhub.log ;;
+#    *)
+#        echo
+#        echo "The 'emonhub' command can be used with these valid options"
+#        echo
+#        echo "emonHub utilities"
+#        echo "   -c | --config    Configure emonHub by editing emonhub.conf"
+#        echo "  -ct | --crontab   Opens emonHub's crontab scheduler"
+#        echo "   -h | --help      Display this help for emonHub command options"
+#        echo "   -r | --restart   Restart the emonhub service"
+#        echo "   -s | --start     Start the emonhub service"
+#        echo "   -u | --update    Update emonHub via the git repository"
+#        echo "   -v | --version   Display the emonHub version installed"
+#        echo "   -x | --exit      Exit emonHub by stopping the emonhub service"
+#        echo
+#        echo "emonHub logging"
+#        echo "  -dl | --display-log   Display last 10 & on-going log messages"
+#        echo "  -ol | --open=logfile  Open logfile in nano text editor"
+#        echo "  -rl | --reset-logfile Reset the current logfile (deletes log!)"
+#        echo "  -vl | --view-logfile  View the entire logfile"
+#        echo;;
+#esac
+#
+#EOF
+#
+## make the utilities script executable
+#sudo chmod +x /usr/bin/emonhub
 
 ### create "emonhub" user
 sudo useradd -M -r -G dialout,tty -c "emonHub user" emonhub
