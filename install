@@ -66,6 +66,7 @@ case \$1 in
             {
             sudo mount -o remount,ro /dev/mmcblk0p2  /
             }
+        fi
         sudo crontab -e -u emonhub
         ;;
     -r | --restart)
