@@ -25,7 +25,7 @@ mkdir -p $REPO_PATH && git clone https://github.com/emonhub/emonhub.git $REPO_PA
 
 ### create folder and move settings file (unless it exists already)
 if [ ! -f /etc/emonhub/emonhub.conf ] ; then
-  mkdir -p $CONF_PATH && cp $REPO_PATH/conf/emonhub.conf $CONF_PATH
+  mkdir -p $CONF_PATH && cp $REPO_PATH/emonhub/conf/emonhub.conf $CONF_PATH
 fi
 
 ### create linked directory for emonhub.py etc
