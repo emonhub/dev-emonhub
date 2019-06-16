@@ -1,50 +1,41 @@
 #!/bin/sh
 
+BRANCH=systemd
+
+# Debian paths
 ### set git cloned location
-GIT_PATH=~/emonhub
+REPO_PATH=/opt/emonhub
 
 ### set location to install emonhub.py etc
-INST_PATH=/usr/share/emonhub
+INST_PATH=/usr/local/bin
+
+CONF_PATH=/etc/emonhub
+
+###install dependancies
+apt-get update && apt-get install -y python-pip python-serial python-configobj
+#apt-get update && apt-get install -y python-pip 
+#apt-get purge python-serial && apt-get clean
+#pip install pyserial configobj #paho-mqtt
+
+### create "emonhub" user
+useradd -M -r -G dialout,tty -c "emonHub user" emonhub
 
 ### clone emonhub
-git clone https://github.com/emonhub/emonhub.git $GIT_PATH
-
-### switch to development branch
-cd $GIT_PATH
-git checkout development
-cd $OLDPWD
-
-### create linked directory for emonhub.py etc
-sudo rm -r -f $INST_PATH
-sudo ln -s $GIT_PATH/src $INST_PATH
-
-### link init script
-sudo rm -f /etc/init.d/emonhub
-sudo ln -s $GIT_PATH/service/emonhub /etc/init.d/emonhub
-
-### link default locations file
-sudo rm -f /etc/default/emonhub
-sudo ln -s $GIT_PATH/conf/default/emonhub /etc/default/emonhub
+mkdir -p $REPO_PATH && git clone https://github.com/emonhub/emonhub.git $REPO_PATH/emonhub -b $BRANCH
 
 ### create folder and move settings file (unless it exists already)
 if [ ! -f /etc/emonhub/emonhub.conf ] ; then
-  {
-  sudo mkdir -p /etc/emonhub
-  sudo mv $GIT_PATH/conf/emonhub.conf /etc/emonhub/emonhub.conf
-  }
+  mkdir -p $CONF_PATH && cp $REPO_PATH/conf/emonhub.conf $CONF_PATH
 fi
 
+### create linked directory for emonhub.py etc
+mkdir -p $INST_PATH && ln -sfn $REPO_PATH/emonhub/src $INST_PATH/emonhub
+
+### systemd unit
+ln -sf $REPO_PATH/service/emonhub.service /etc/systemd/system/emonhub.service
+
 # launch at start-ip
-sudo update-rc.d emonhub defaults 99
-
-###install dependancies
-sudo apt-get install -y python-serial python-configobj
-
-### create "emonhub" user
-sudo useradd -M -r -G dialout,tty -c "emonHub user" emonhub
-
-### start emonhub
-sudo service emonhub restart
+systemctl enable --now emonhub.service
 
 ### delete install script
-sudo rm -r ~/dev-emonhub
+#sudo rm -r `dirname $0`
